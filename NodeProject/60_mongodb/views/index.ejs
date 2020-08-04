@@ -92,7 +92,8 @@
 
 
 <body>
-  <%- include("menu"); %>
+  <%- include("menu copy"); %>
+  
 
   <!--Main Layout-->
   <main>
@@ -103,7 +104,7 @@
 
         <p>고전시가가 많이 어려우신 당신을 위한 서비스</p>
       </div>
-      <button class="start-button" OnClick="location.href ='/api/play/test'">
+      <button class="start-button" OnClick="PageStart()">
         let's start
       </button>
     </div>
@@ -138,6 +139,21 @@
   <!--Main Layout-->
 
   <%- include("footer"); %>
+
+  <script>
+    function PageStart() {
+      sleep(100);
+      location.href = '/api/play/test';
+    }
+
+
+
+
+    function sleep(delay) {
+      var start = new Date().getTime();
+      while (new Date().getTime() < start + delay);
+    }
+  </script>
 </body>
 
 </html>

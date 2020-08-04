@@ -4,9 +4,10 @@
 <head>
   <%- include("../header"); %>
   <link rel="stylesheet" href="/stylesheets/test.css">
+  <link rel="stylesheet" href="/stylesheets/booklist.css">
 
   <style>
-    
+
   </style>
 </head>
 
@@ -15,6 +16,15 @@
   <%- include("../menu"); %>
 
 
+  <div class="search_container">
+    <div class="search-box">
+      <div id="Search-Box-form">
+        <input type="text" placeholder="제목 검색" name="Booklist" id="Search-Box">
+        <button type="button" onclick="Searching()"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <div class="search-box-icon"></div>
+  </div>
 
   <div id="createForm">
 
@@ -29,6 +39,12 @@
 
   </div>
 
+  <div class="notfounderror" onclick="nfdisappear()">
+    <h1>아쉽게도 작품이 없네요!</h1>
+  </div>
+
+
+
   <%- include("../footer"); %>
   <script>
     function topFunction() {
@@ -36,7 +52,54 @@
       $('html, body').animate({
         scrollTop: 0
       }, 'slow');
+
+      //var test = $(".card-text")[0];
+      //alert(test.innerHTML);
     }
+
+    function sleep(delay) {
+      var start = new Date().getTime();
+      while (new Date().getTime() < start + delay);
+    }
+
+    function Searching() {
+      var input, filter, cardtitle, cardcontainer, i, title, ttvalue, temp, notfound, notfounderror;
+      input = document.getElementById("Search-Box").value;
+      cardtitle = document.getElementsByClassName("card-title");
+      cardcontainer = document.getElementsByClassName("card card-cascade wider reverse");
+      notfound = document.getElementsByClassName("not-found")[0];
+      notfounderror = document.getElementsByClassName("notfounderror")[0];
+      notfounderror.style.opacity = 1;
+
+      //alert("인풋 값 : " + input);
+      temp = 0;
+      for (i = 0; i < cardtitle.length; i++) {
+        title = cardtitle[i].getElementsByTagName("strong")[0];
+        ttvalue = title.innerText;
+
+
+        if (ttvalue.indexOf(input) > -1) {
+          cardcontainer[i].style.display = '';
+          temp = 1;
+        } else {
+          cardcontainer[i].style.display = "none";
+        }
+      }
+      if (temp == 0) {
+        notfound.style.display = '';
+        notfounderror.style.display = 'block';
+      } else {
+        notfound.style.display = 'none';
+        notfounderror.style.display = 'none';
+      }
+    }
+
+    function nfdisappear() {
+      notfounderror = document.getElementsByClassName("notfounderror")[0];
+      notfounderror.style.opacity = 0;
+    }
+
+    //document.getElementById("Search-Box-form").form.
   </script>
 </body>
 

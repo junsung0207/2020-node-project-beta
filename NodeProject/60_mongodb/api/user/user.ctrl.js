@@ -7,8 +7,16 @@ const showSignupPage = (req, res) => {
 };
 
 const showIndexPage = (req, res) => {
-    res.render("./index");
+    const token = req.cookies.googleToken;
+    console.log(`index... ${token}`)
+    res.render("./index", {
+        token: token
+    });
 };
+
+
+
+
 
 const showLoginPage = (req, res) => {
     res.render("user/login", );
@@ -93,6 +101,7 @@ const login = (req, res) => {
                 res.cookie("token", token, {
                     httpOnly: true
                 });
+
                 res.json(result);
             });
         });
@@ -116,35 +125,48 @@ const checkAuth = (req, res, next) => {
 
     // 쿠키에서 토큰 가져오기
     const token = req.cookies.token;
-    if (!token) {
+
+    // ++
+    const googleAccessToken = req.cookies.googleToken;
+    // origin (!token)
+    // -------
+    if (!token && !googleAccessToken) {
         // 1. 정상적으로 토큰이 없는 경우
-        if (req.url === "/" || req.url === "/api/user/signup" || req.url === "/api/user/login")
+        if (req.url === "/" || req.url === "/api/user/signup" || req.url === "/api/user/login" || req.url === "/api/auth/google/signin" || req.url === "/api/auth/google/callback")
             return next();
         // 2. 비정상적으로 토큰이 없는 경우 (ex. 일부로 지운 경우)
-        else return res.render("welcome");
+        else return next();
     }
+    // --------
 
     // 토큰이 있는 경우
     // 토큰 정합성 체크
-    jwt.verify(token, "secretToken", (err, _id) => {
-        if (err) {
-            res.clearCookie("token");
-            return res.render("welcome");
-        }
-        // 쿠키의 token, DB에 저장된 token 비교
-        UserModel.findOne({
-            _id,
-            token
-        }, (err, result) => {
-            if (err) return res.status(500).send("사용자 인증시 오류가 발생했습니다.");
-            if (!result) return res.render("welcome");
-            res.locals.user = {
-                name: result.name,
-                role: result.role
-            };
-            next();
+    if (token && !googleAccessToken) {
+        jwt.verify(token, "secretToken", (err, _id) => {
+
+            if (err) {
+                console.log("error")
+                res.clearCookie("token");
+                return res.render("welcome");
+            }
+
+            // 쿠키의 token, DB에 저장된 token 비교
+            UserModel.findOne({
+                _id,
+                token
+            }, (err, result) => {
+                if (err) return res.status(500).send("사용자 인증시 오류가 발생했습니다.");
+                if (!result) return res.render("welcome");
+                res.locals.user = {
+                    name: result.name,
+                    role: result.role
+                };
+                next();
+            })
         })
-    })
+    }
+    next();
+
 
 }
 

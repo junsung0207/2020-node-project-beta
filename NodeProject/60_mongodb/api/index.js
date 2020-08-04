@@ -9,5 +9,6 @@ router.use("/play", require("./play"));
 router.use("/introduce", require("./introduce"));
 router.use("/user", require("./user"));
 router.use("/", require("./user"));
+router.use("/auth", require("./auth"))
 
 module.exports = router;

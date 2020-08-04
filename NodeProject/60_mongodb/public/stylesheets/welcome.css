@@ -60,6 +60,7 @@ html {
     height: 50px;
     border: none;
     background-color: white;
+    color: white;
     text-decoration: none;
     border-radius: 500px;
     margin: 20px 0;
@@ -83,19 +84,19 @@ html {
 }
 
 #arae_login {
-    background-color: #8BDBFF;
+    background-color: #54b2dd;
 }
 
 #arae_login .signup_icon {
     background-image: url("/images/Arae.png");
 }
 
-#kakao_login .signup_icon {
-    background-image: url("/images/kakao.png");
+#google_login .signup_icon {
+    background-image: url("/images/google_icon.png");
 }
 
-#kakao_login {
-    background-color: #43FF00;
+#google_login {
+    background-color: #317CFF;
 }
 
 .signin {
@@ -156,7 +157,6 @@ html {
         width: 230px;
         height: 36px;
         border: none;
-        background-color: white;
         text-decoration: none;
         border-radius: 500px;
         margin: 20px 0;
@@ -180,7 +180,7 @@ html {
     }
 
     #arae_login {
-        background-color: #8BDBFF;
+        /* background-color: #8BDBFF; */
     }
 
     #arae_login .signup_icon {

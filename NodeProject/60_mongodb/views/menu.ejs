@@ -34,19 +34,20 @@
           <a class="nav-link" href="/api/play">문장카드</a>
         </li>
       </ul>
+
       <% if (user === null) { %>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Login</a>
+          <a class="nav-link" id="LoginLink" href="/">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Sign up</a>
+          <a class="nav-link" id="SignupLink" href="/">Signup</a>
         </li>
       </ul>
       <% } else { %>
-      <ul class="navbar-nav ml-auto">
+      <ul class=" navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link"><%= user.name %> 님</a>
+          <a class="nav-link"><%= user.name %> 님 </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/api/user/logout">Logout</a>
@@ -58,4 +59,16 @@
   <div class="empty" style="height:80px;"></div>
 
 </header>
+
+<script>
+  if (true) {
+    console.log("googlename is notnull")
+    LoginLink.innerHTML = "윤준성" + " in Google Account";
+    SignupLink.style.display = "none";
+  } else {
+    LoginLink.innerHTML = "Login";
+    SignupLink.style.display = "";
+  }
+</script>
+
 <!--Main Navigation-->

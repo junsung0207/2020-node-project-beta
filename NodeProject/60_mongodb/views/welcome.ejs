@@ -53,9 +53,9 @@
 <body>
     <main>
         <div class="background"></div>
-        <div id="kakao-error" class="kakao-error" onclick="kakaoerrorclose();">
+        <!-- <div id="kakao-error" class="kakao-error" onclick="kakaoerrorclose();">
             <p id="kakao-error-p">아직 지원하지 않아요!</p>
-        </div>
+        </div> -->
         <div class="container">
             <div OnClick="location.href ='/'" class="icon"></div>
             <div class="arae">
@@ -66,9 +66,9 @@
                 <div class="signup_icon"></div>
                 <span class="signup_text" onclick="show_signup()">Sign up with Arae : a</span>
             </button>
-            <button class="signup" id="kakao_login" onclick="kakaoerror();">
+            <button class="signup" id="google_login">
                 <div class="signup_icon"></div>
-                <span class="signup_text">Sign up with KaKao</span>
+                <span class="signup_text">Sign up with Google</span>
             </button>
             <button class="signin" OnClick="ScrollToBottom()">Wanna Login?</button>
         </div>
@@ -194,7 +194,7 @@
 
     <%- include("footer"); %>
     <script>
-        var kakao_error = document.getElementById("kakao-error");
+        /*var kakao_error = document.getElementById("kakao-error");
         var kakao_error_p = document.getElementById("kakao-error-p");
 
         function kakaoerror() {
@@ -205,7 +205,7 @@
         function kakaoerrorclose() {
             kakao_error.style.opacity = '0';
             kakao_error_p.style.cursor = 'default';
-        }
+        }*/
 
         var signup_block = document.getElementById("form-light");
         var signin_block = document.getElementById("form-elegant");
@@ -267,6 +267,15 @@
                 }).fail((request, status, error) => {
                     alert(request.responseText);
                 });
+            });
+        });
+
+        //google login
+        $(function () {
+            $("#google_login").click((event) => {
+                event.preventDefault();
+                location.href = "/api/auth/google/signin";
+
             });
         });
     </script>

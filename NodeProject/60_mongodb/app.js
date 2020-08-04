@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
   res.render("welcome");
 });
 
+
 app.use("/api", require("./api")); //갖다 붙임(42_routung > app.js에서)
 
 // catch 404 and forward to error handler
