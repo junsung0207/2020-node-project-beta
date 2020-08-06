@@ -194,18 +194,46 @@
 
     <%- include("footer"); %>
     <script>
-        /*var kakao_error = document.getElementById("kakao-error");
-        var kakao_error_p = document.getElementById("kakao-error-p");
+        function checkSearchWord(obj) {
+            if (obj.length > 0) {
+                var expText = /[%=><]/;
+                if (expText.test(obj) == true) {
+                    alert("특수문자를 입력할 수 없어요");
+                    obj.value = obj.value.split(expText).join("");
+                    return false;
+                }
 
-        function kakaoerror() {
-            kakao_error.style.opacity = '1';
-            kakao_error_p.style.cursor = 'pointer';
+                // READ, OPERATION은 mongodb 문법에 해당
+                var sqlArray = new Array(
+                    "OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC", "UNION", "FETCH",
+                    "DECLARE", "TRUNCATE", "READ", "OPERATION"
+                );
+
+                var regex;
+                for (var i = 0; i < sqlArray.length; i++) {
+                    regex = new RegExp(sqlArray[i], "gi");
+                    if (regex.test(obj)) {
+                        alert(sqlArray[i] + "와 같은 특정 문자로 검색할 수 없어요");
+                        obj = obj.replace(regex, "");
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
-        function kakaoerrorclose() {
-            kakao_error.style.opacity = '0';
-            kakao_error_p.style.cursor = 'default';
-        }*/
+        /*var kakao_error = document.getElementById("kakao-error");
+            var kakao_error_p = document.getElementById("kakao-error-p");
+
+            function kakaoerror() {
+                kakao_error.style.opacity = '1';
+                kakao_error_p.style.cursor = 'pointer';
+            }
+
+            function kakaoerrorclose() {
+                kakao_error.style.opacity = '0';
+                kakao_error_p.style.cursor = 'default';
+            }*/
 
         var signup_block = document.getElementById("form-light");
         var signin_block = document.getElementById("form-elegant");
